@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeoVision Ads</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Arial', sans-serif;
+  background: #0f1724;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Navigation */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(15, 23, 36, 0.9);
+  padding: 15px 40px;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+header.scrolled {
+  background: #111a2c;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffe7;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #00ffe7;
+}
+
+/* Hamburger for mobile */
+.nav-toggle {
+  display: none;
+  font-size: 1.8rem;
+  color: #00ffe7;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+              url('images/hero-bg.jpg') no-repeat center center/cover;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  color: #00ffe7;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #00ffe7;
+  color: #111;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #00cfc0;
+}
+
+/* Services */
+.services {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.services h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #00ffe7;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: #1e2a38;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,255,231,0.3);
+}
+
+.card video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.card .content {
+  padding: 20px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #00ffe7;
+}
+
+.card p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+  background: #111a2c;
+  padding: 30px;
+  text-align: center;
+}
+
+footer p {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.socials a {
+  margin: 0 10px;
+  color: #00ffe7;
+  font-size: 1.2rem;
+  transition: 0.3s ease;
+}
+
+.socials a:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    height: 100vh;
+    width: 200px;
+    background: #111a2c;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 50px;
+    transition: right 0.3s ease;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .card video {
+    height: 150px;
+  }
+
+  .services {
+    padding: 60px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<header>
+  <nav>
+    <div class="logo">NeoVision Ads</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="location.html">Location</a></li>
+      <li><a href="packaging.html">Packages</a></li>
+      <li><a href="login.html">Sign In</a></li>
+      <li><a href="follow.html">Follow Us</a></li>
+    </ul>
+    <div class="nav-toggle"><i class="fas fa-bars"></i></div>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <h1>Shaping the Future of Outdoor Advertising</h1>
+  <p>"Where Imagination Meets Reality – 3D Billboards That Bring Your Brand to Life"</p>
+  <a href="#services" class="btn">Explore Now</a>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+  <h2>Our Services</h2>
+  <div class="card-container">
+    <!-- Card 1 -->
+    <article class="card">
+      <div class="media">
+        <video class="svc-video" autoplay muted playsinline loop preload="metadata"
+               poster="images/poster-samsung.jpg">
+          <source src="WhatsApp Video 2025-08-24 at 4.02.28 PM.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="content">
+        <h3>Samsung Galaxy Ads</h3>
+        <p>Experience speed, style & innovation with Samsung Galaxy.</p>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card">
+      <div class="media">
+        <video class="svc-video" autoplay muted playsinline loop preload="metadata"
+               poster="images/poster-car.jpg">
+          <source src="WhatsApp Video 2025-08-25 at 5.43.43 PM.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="content">
+        <h3>Car Showroom Promotions</h3>
+        <p>Drive your dream today! Explore luxury rides & unbeatable offers.</p>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card">
+      <div class="media">
+        <video class="svc-video" autoplay muted playsinline loop preload="metadata"
+               poster="images/poster-restaurant.jpg">
+          <source src="WhatsApp Video 2025-08-26 at 12.05.27 PM.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="content">
+        <h3>Restaurant Advertising</h3>
+        <p>Taste that stays with you! From sizzling flavors to cozy dining.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="follow">
+  <p>© 2025 NeoVision Ads. All Rights Reserved.</p>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</footer>
+
+<script>
+// Sticky navbar effect
+window.addEventListener("scroll", function() {
+  const header = document.querySelector("header");
+  header.classList.toggle("scrolled", window.scrollY > 50);
+});
+
+// Smooth scrolling for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+});
+
+// Mobile menu toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+</script>
+
+</body>
+</html>
