@@ -1,0 +1,303 @@
+
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3D Billboard Packages</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #f4f4f9, #ffffff, #f7f7ff, #ececec);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Navbar */
+    header {
+      background: #0f1724;
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    nav {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo {
+      color:#00ffe7;
+      font-size:22px;
+      font-weight:bold;
+    }
+    .nav-links {
+      list-style:none;
+      display:flex;
+      gap:20px;
+      transition:all 0.3s ease;
+    }
+    .nav-links li a {
+      text-decoration:none;
+      color:white;
+      font-size:16px;
+      padding:8px 12px;
+      border-radius:6px;
+      transition:0.3s;
+    }
+    .nav-links li a:hover {
+      background:#00ffe7;
+      color:#0f1724;
+    }
+    /* Hamburger */
+    .hamburger {
+      display:none;
+      flex-direction:column;
+      cursor:pointer;
+    }
+    .hamburger span {
+      height:3px;
+      width:25px;
+      background:white;
+      margin:4px 0;
+      border-radius:3px;
+      transition:0.3s;
+    }
+    /* Responsive */
+    @media (max-width:768px) {
+      .nav-links {
+        position:absolute;
+        right:0;
+        top:60px;
+        background:#1e2a38;
+        flex-direction:column;
+        align-items:flex-start;
+        width:220px;
+        height:0;
+        overflow:hidden;
+        padding:0;
+        border-radius:0 0 10px 10px;
+      }
+      .nav-links.active {
+        height:auto;
+        padding:10px 0;
+      }
+      .nav-links li {width:100%;}
+      .nav-links li a {
+        display:block;
+        width:100%;
+        padding:12px 20px;
+      }
+      .hamburger {display:flex;}
+      .hamburger.active span:nth-child(1) {
+        transform:rotate(45deg) translate(5px,5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity:0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform:rotate(-45deg) translate(5px,-5px);
+      }
+    }
+
+    /* Title Section */
+    .page-title {
+      text-align:center;
+      padding:40px 20px;
+      color:#0f1724;
+    }
+    .page-title h1 {
+      font-size:2.5rem;
+      font-weight:bold;
+      color:#f6b93b;
+    }
+
+    /* Cards */
+    .container {
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      padding:30px;
+    }
+    .card {
+      background:#1a2536;
+      border-radius:12px;
+      padding:20px;
+      width:280px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.5);
+      text-align:center;
+      transform:perspective(1000px) rotateY(0deg);
+      transition:transform 0.3s;
+    }
+    .card:hover {transform:perspective(1000px) rotateY(10deg);}
+    .card h2 {color:#8bd3dd;}
+    .price {font-size:24px; margin:15px 0;}
+    .btn {
+      display:inline-block;
+      padding:10px 20px;
+      background:#f6b93b;
+      color:#000;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    .btn:hover {background:#e0a600;}
+
+    /* Modal */
+    .modal {
+      display:none;
+      position:fixed;
+      z-index:999;
+      left:0; top:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.7);
+      justify-content:center; align-items:center;
+    }
+    .modal-content {
+      background:#fff; color:#000;
+      padding:20px; border-radius:12px;
+      width:300px; position:relative;
+    }
+    .close {
+      position:absolute; top:10px; right:15px;
+      font-size:20px; cursor:pointer; color:red;
+    }
+    form label {display:block; margin-top:10px; text-align:left;}
+    form input {width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:6px;}
+    form button {margin-top:15px;}
+
+    .thankyou-box {
+      display:none;
+      text-align:center;
+      padding:30px;
+      background:#1a2536;
+      color:white;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.5);
+      width:300px;
+    }
+    .thankyou-box h2 {color:#8bd3dd;}
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <div class="logo">NeoVision Ads</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="packaging.html">Packages</a></li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="follow.html">Follow Us</a></li>
+      </ul>
+      <!-- Hamburger -->
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Title -->
+  <section class="page-title">
+    <h1>3D Billboard Advertisement Packages</h1>
+  </section>
+
+  <!-- Packages -->
+  <div class="container">
+    <div class="card">
+      <h2>Silver</h2>
+      <p class="price">₹5,000</p>
+      <p>Duration: 1 Month</p>
+      <p>Basic visibility on prime locations</p>
+      <button class="btn bookBtn" data-plan="Silver" data-duration="1 Month">Book Now</button>
+    </div>
+    <div class="card">
+      <h2>Gold</h2>
+      <p class="price">₹10,000</p>
+      <p>Duration: 3 Months</p>
+      <p>High visibility with premium spots</p>
+      <button class="btn bookBtn" data-plan="Gold" data-duration="3 Months">Book Now</button>
+    </div>
+    <div class="card">
+      <h2>Platinum</h2>
+      <p class="price">₹20,000</p>
+      <p>Duration: 6 Months</p>
+      <p>Maximum exposure with top locations</p>
+      <button class="btn bookBtn" data-plan="Platinum" data-duration="6 Months">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Book Package</h2>
+      <form id="bookingForm">
+        <label>Name <input type="text" name="name" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Phone <input type="tel" name="phone" required></label>
+        <label>Plan <input type="text" name="plan" id="bookingPlan" readonly></label>
+        <label>Duration <input type="text" name="duration" id="bookingDuration" readonly></label>
+        <button class="btn" type="submit">Submit Booking</button>
+      </form>
+
+      <div class="thankyou-box" id="thankyouBox">
+        <h2>🎉 Thank You!</h2>
+        <p>Your booking request has been sent successfully.<br>We’ll contact you soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('bookingModal');
+    const closeBtn = document.querySelector('.close');
+    const bookingPlan = document.getElementById('bookingPlan');
+    const bookingDuration = document.getElementById('bookingDuration');
+    const bookingForm = document.getElementById('bookingForm');
+    const thankyouBox = document.getElementById('thankyouBox');
+
+    // Open modal
+    document.querySelectorAll('.bookBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        bookingPlan.value = btn.dataset.plan;
+        bookingDuration.value = btn.dataset.duration;
+        modal.style.display = 'flex';
+        bookingForm.style.display = 'block';
+        thankyouBox.style.display = 'none';
+      });
+    });
+    // Close modal
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', e => {if(e.target == modal) modal.style.display = 'none';});
+
+    // Form submit
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault(); 
+      bookingForm.style.display = 'none';
+      thankyouBox.style.display = 'block';
+    });
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
