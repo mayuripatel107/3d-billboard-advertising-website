@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow Us | 3D Billboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Unique 3D Heading */
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 40px 0 20px;
+      color: #fdfdfd;
+      text-shadow: 2px 2px 0px #ff0057,
+                   4px 4px 0px #00c3ff,
+                   6px 6px 15px rgba(0,0,0,0.6);
+    }
+
+    h1 span {
+      color: #00eaff;
+    }
+
+    /* Dropdown button */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropbtn {
+      background: #ff0057;
+      color: #fff;
+      padding: 14px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .dropbtn:hover {
+      background: #ff3377;
+      transform: scale(1.05);
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: #fff;
+      min-width: 240px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+      margin-top: 8px;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 14px 18px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.3s, color 0.3s;
+      font-size: 16px;
+    }
+    .dropdown-content a i {
+      width: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .dropdown-content a:hover {
+      background: #0f2027;
+      color: #fff;
+    }
+
+    /* Small note */
+    .tagline {
+      margin-top: 12px;
+      font-style: italic;
+      color: #ddd;
+    }
+
+    /* Active class (shown by JS) */
+    .dropdown-content.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ------------------- Header ------------------- */
+    header {
+      background: #0f1724;
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #00ffe7;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    /* ------------------- Navbar Links ------------------- */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .nav-links li a:hover {
+      background: #00ffe7;
+      color: #0f1724;
+    }
+
+    /* ------------------- Hamburger Menu ------------------- */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    /* ------------------- Responsive (Phones/Tablets) ------------------- */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: #1e2a38;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 220px;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        border-radius: 0 0 10px 10px;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links li a {
+        display: block;
+        width: 100%;
+        padding: 12px 20px;
+      }
+
+      .nav-links.open {
+        height: auto;
+        padding: 10px 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ------------------- Hamburger Animation ------------------- */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+  </style>
+</head>
+<body>
+   <!-- Navigation -->
+  <header>
+    <nav>
+      <div class="logo">NeoVision Ads</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="packaging.html">Packages</a></li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="follow.html">Follow Us</a></li>
+      </ul>
+      <!-- ✅ Added Hamburger Button -->
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Unique 3D Heading -->
+  <h1>3D Billboard <span>Advertisement</span></h1>
+  <p class="tagline">Experience the Future of Advertising in a Unique Way 🚀</p>
+
+  <!-- Follow Us Dropdown -->
+  <div class="dropdown">
+    <button class="dropbtn"><i class="fa-solid fa-share-nodes"></i> Follow Us</button>
+    <div class="dropdown-content" id="dropdownMenu">
+      <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram</a>
+      <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-x-twitter" style="color:#000;"></i> Twitter (X)</a>
+      <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Facebook</a>
+      <a href="https://www.linkedin.com/" target="_blank"><i class="fa-brands fa-linkedin" style="color:#0A66C2;"></i> LinkedIn</a>
+      <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube" style="color:#FF0000;"></i> YouTube</a>
+      <a href="https://wa.me/91XXXXXXXXXX" target="_blank"><i class="fa-brands fa-whatsapp" style="color:#25D366;"></i> WhatsApp</a>
+      <a href="https://www.snapchat.com/" target="_blank"><i class="fa-brands fa-snapchat" style="color:#FFFC00;"></i> Snapchat</a>
+      <a href="https://t.me/username" target="_blank"><i class="fa-brands fa-telegram" style="color:#0088cc;"></i> Telegram</a>
+    </div>
+  </div>
+
+  <script>
+    // Dropdown toggle
+    const dropBtn = document.querySelector('.dropbtn');
+    const dropdown = document.getElementById('dropdownMenu');
+    dropBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      dropdown.classList.toggle('show');
+    });
+    window.addEventListener('click', function (e) {
+      if (!dropdown.contains(e.target) && !dropBtn.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // ✅ Hamburger toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
