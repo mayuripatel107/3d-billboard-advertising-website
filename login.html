@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3D Billboard | Login</title>
+<meta name="description" content="Sign in to your 3D Billboard Advertising dashboard" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%230a0a0a'/%3E%3Crect x='22' y='30' width='84' height='48' rx='8' fill='%232fe1ff'/%3E%3Crect x='22' y='30' width='84' height='48' rx='8' fill='url(%23g)' opacity='.85'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ff2f9f'/%3E%3Cstop offset='1' stop-color='%23ffd12f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='58' y='82' width='12' height='24' rx='3' fill='%23a3a3a3'/%3E%3Cellipse cx='64' cy='110' rx='30' ry='6' fill='%23151515'/%3E%3C/svg%3E" />
+
+<style>
+/* ------------------- Variables & Base ------------------- */
+:root {
+  --bg:#070b12; --bg-accent:#0a1220; --card:rgba(255,255,255,0.06); --card-stroke:rgba(255,255,255,0.12);
+  --text:#e9f0ff; --muted:#b9c3d6; --focus:#2fe1ff; --accent:#ff3aa6; --ok:#61ffa8; --warn:#ffd12f; --error:#ff6b6b;
+  --radius-xl:24px; --radius-lg:18px; --radius-md:12px;
+  --shadow:0 20px 50px rgba(0,0,0,.45),0 2px 10px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:radial-gradient(1200px 600px at 75% -10%,#1a2b6b55,transparent 60%),
+             radial-gradient(900px 500px at -10% 80%,#6b1a5a55,transparent 60%),
+             var(--bg);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+/* ------------------- Grid & 3D Scene ------------------- */
+.grid{
+  width:min(1100px,92vw);
+  height:min(720px,92vh);
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:24px;
+  padding:28px;
+  border-radius:var(--radius-xl);
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--card-stroke);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(8px);
+  position:relative;
+  isolation:isolate;
+}
+.sparkle{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:radial-gradient(4px 4px at 15% 20%,rgba(255,255,255,.25),transparent 40%),
+             radial-gradient(3px 3px at 70% 65%,rgba(255,255,255,.18),transparent 45%),
+             radial-gradient(2px 2px at 30% 85%,rgba(255,255,255,.18),transparent 50%);
+  filter:blur(.2px);
+}
+.scene{
+  background:linear-gradient(180deg,#0b1022,#0a0f1d);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--card-stroke);
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+}
+.grid-floor{
+  position:absolute;
+  inset:0;
+  translate:0 18%;
+  background:repeating-linear-gradient(90deg,rgba(47,225,255,.12) 0 2px,transparent 2px 120px),
+             repeating-linear-gradient(0deg,rgba(47,225,255,.12) 0 2px,transparent 2px 120px);
+  transform:perspective(900px) rotateX(70deg) scale(1.1);
+  transform-origin:50% 100%;
+  filter:drop-shadow(0 10px 30px rgba(47,225,255,.15));
+}
+.pole{
+  position:absolute;
+  bottom:50px;
+  left:50%;
+  width:20px;
+  height:240px;
+  translate:-50% 0;
+  background:linear-gradient(180deg,#5c6c86,#2a3344);
+  border-radius:12px;
+  box-shadow:inset 0 0 10px rgba(0,0,0,.5);
+}
+.board{
+  width:82%;
+  max-width:620px;
+  aspect-ratio:5/3;
+  background:linear-gradient(120deg,#1d2030,#0e121c);
+  border-radius:14px;
+  border:2px solid rgba(255,255,255,.15);
+  box-shadow:0 60px 120px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06) inset;
+  transform:perspective(1200px) rotateY(-12deg) rotateX(2deg);
+  position:relative;
+  overflow:hidden;
+}
+.board::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:conic-gradient(from 0deg at 30% 50%,#2fe1ff,#ff3aa6,#ffd12f,#2fe1ff);
+  filter:blur(40px) saturate(150%);
+  opacity:.35;
+  animation:sweep 12s linear infinite;
+}
+@keyframes sweep{to{transform:rotate(1turn);}}
+.ad-copy{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;}
+.ad-copy h2{
+  margin:0;
+  font-size:clamp(22px,3.6vw,40px);
+  letter-spacing:.5px;
+  background:linear-gradient(90deg,#fff,#9be8ff 40%,#ffd2f0 70%,#fff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 6px 20px rgba(0,0,0,.6);
+}
+.ad-copy p{margin:.4rem 0 0;color:#d3e6ff;opacity:.9;}
+
+/* ------------------- Auth Form ------------------- */
+.auth{
+  background:var(--card);
+  border:1px solid var(--card-stroke);
+  border-radius:var(--radius-lg);
+  padding:clamp(20px,3.2vw,32px);
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  backdrop-filter:blur(12px) saturate(130%);
+}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand h1{font-size:18px;margin:0;letter-spacing:.4px;}
+.brand span{color:var(--muted);font-size:12px;display:block;}
+form{display:grid;gap:14px;}
+.field{
+  position:relative;
+  display:flex;
+  align-items:center;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:var(--radius-md);
+  padding:12px 14px;
+  transition:border .2s,box-shadow .2s,background .2s;
+}
+.field:focus-within{
+  border-color:var(--focus);
+  box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 25%,transparent);
+  background:rgba(255,255,255,.08);
+}
+.field input{width:100%;outline:none;border:none;background:transparent;color:var(--text);font-size:15px;}
+.field svg{flex:0 0 auto;margin-right:10px;opacity:.9;}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.row a{color:var(--focus);text-decoration:none;font-size:13px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:linear-gradient(180deg,#35ecff,#1990ff);color:#001018;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:transform .06s ease,filter .2s;box-shadow:0 12px 30px rgba(25,144,255,.35);}
+.btn:active{transform:translateY(1px);}
+.btn.secondary{background:linear-gradient(180deg,#2a2f3f,#171b28);color:#e6eeff;box-shadow:0 8px 20px rgba(0,0,0,.45);}
+.providers{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.legal{font-size:12px;color:var(--muted);line-height:1.5;text-align:center;}
+.credit{text-align:center;font-size:12px;color:#8ea3c7;opacity:.8;}
+
+/* ------------------- Header & Navbar ------------------- */
+header{background:#0f1724;padding:15px 20px;box-shadow:0 2px 8px rgba(0,0,0,.3);position:sticky;top:0;z-index:999;}
+nav{display:flex;justify-content:space-between;align-items:center;}
+.logo{color:#00ffe7;font-size:22px;font-weight:bold;letter-spacing:1px;}
+.nav-links{list-style:none;display:flex;gap:20px;transition:all 0.3s ease;}
+.nav-links li a{text-decoration:none;color:white;font-size:16px;padding:8px 12px;border-radius:6px;transition:0.3s;}
+.nav-links li a:hover{background:#00ffe7;color:#0f1724;}
+
+/* ------------------- Hamburger ------------------- */
+.hamburger{display:none;flex-direction:column;cursor:pointer;}
+.hamburger span{height:3px;width:25px;background:white;margin:4px 0;border-radius:3px;transition:0.3s;}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+/* ------------------- Responsive ------------------- */
+@media(max-width:980px){.grid{grid-template-columns:1fr;height:auto;}.scene{height:40vh;min-height:300px;}}
+@media(max-width:768px){
+  .nav-links{
+    position:absolute;top:60px;right:0;flex-direction:column;align-items:flex-start;width:220px;
+    max-height:0;overflow:hidden;padding:0;background:#1e2a38;border-radius:0 0 10px 10px;
+    transition:max-height 0.3s ease-in-out,padding 0.3s ease;
+  }
+  .nav-links.open{max-height:400px;padding:10px 0;}
+  .nav-links li{width:100%;}
+  .nav-links li a{display:block;width:100%;padding:12px 20px;}
+  .hamburger{display:flex;}
+  .grid{grid-template-columns:1fr;height:auto;}
+  .scene{height:40vh;min-height:300px;}
+}
+@media(prefers-reduced-motion:reduce){.board::before{animation:none;}}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* keeps items on left */
+    gap: 50px; /* space between logo and menu */
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<header>
+  <nav>
+    <div class="logo">NeoVision Ads</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="location.html">Location</a></li>
+      <li><a href="packaging.html">Packages</a></li>
+      <li><a href="login.html">Sign In</a></li>
+      <li><a href="follow.html">Follow Us</a></li>
+    </ul>
+    <!-- Hamburger -->
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- Grid + Scene + Auth -->
+<div class="grid">
+  <div class="sparkle" aria-hidden="true"></div>
+  <section class="scene" aria-hidden="true">
+    <div class="grid-floor"></div>
+    <div class="board">
+      <div class="ad-copy">
+        <h2>Light Up the City in 3D</h2>
+        <p>Immersive billboard campaigns that people can't ignore.</p>
+      </div>
+    </div>
+    <div class="pole"></div>
+  </section>
+
+  <section class="auth" aria-label="Login form">
+    <div class="brand">
+      <div class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="5" width="18" height="12" rx="2" stroke="white" opacity=".9"/>
+          <path d="M3 17l3 4h12l3-4" stroke="white" opacity=".7"/>
+          <circle cx="12" cy="11" r="3.2" fill="white" opacity=".9"/>
+        </svg>
+      </div>
+      <div><h1>3D Billboard</h1><span>Advertiser Dashboard</span></div>
+    </div>
+
+    <!-- Tab buttons -->
+    <div class="row" style="justify-content:center; margin-bottom:10px; gap:20px;">
+      <button class="btn secondary" onclick="showForm('login')">Login</button>
+      <button class="btn secondary" onclick="showForm('signup')">Sign Up</button>
+    </div>
+
+    <!-- Login form -->
+    <form id="loginForm" action="#" method="post" autocomplete="on">
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 12a5 5 0 100-10 5 5 0 000 10zM4 20a8 8 0 1116 0v1H4v-1z" stroke="currentColor"/>
+        </svg>
+        <input type="email" name="email" placeholder="Email address" required />
+      </div>
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M6 10V8a6 6 0 1112 0v2" stroke="currentColor"/>
+          <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor"/>
+        </svg>
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+      <div class="row">
+        <label><input type="checkbox" name="remember" /> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+
+    <!-- Signup form -->
+    <form id="signupForm" action="#" method="post" style="display:none;">
+      <div class="field"><input type="text" name="name" placeholder="Full Name" required /></div>
+      <div class="field"><input type="email" name="email" placeholder="Email address" required /></div>
+      <div class="field"><input type="password" name="password" placeholder="Password" required /></div>
+      <div class="field"><input type="password" name="confirm" placeholder="Confirm Password" required /></div>
+      <button class="btn" type="submit">Create Account</button>
+    </form>
+
+    <div class="providers">
+      <button class="btn secondary" type="button"> login with Google</button>
+    </div>
+    <p class="legal">By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+  </section>
+</div>
+
+<script>
+// Switch between login and signup forms
+function showForm(type) {
+  document.getElementById("loginForm").style.display = type === "login" ? "grid" : "none";
+  document.getElementById("signupForm").style.display = type === "signup" ? "grid" : "none";
+}
+
+// Handle login form submission
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  let email = this.querySelector('input[name="email"]').value;
+  let pass = this.querySelector('input[name="password"]').value;
+  let storedUser = JSON.parse(localStorage.getItem(email));
+  if (!storedUser) { alert("❌ No account found with this email. Please sign up."); return; }
+  if (storedUser.password !== pass) { alert("⚠️ Incorrect password! Please try again."); return; }
+  alert("✅ Login successful! Welcome, " + storedUser.name);
+});
+
+// Handle signup form submission
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  let name = this.querySelector('input[name="name"]').value;
+  let email = this.querySelector('input[name="email"]').value;
+  let pass = this.querySelector('input[name="password"]').value;
+  let confirm = this.querySelector('input[name="confirm"]').value;
+  if (!name || !email || !pass || !confirm) { alert("❌ Please fill all fields."); return; }
+  if (pass !== confirm) { alert("⚠️ Passwords do not match!"); return; }
+  localStorage.setItem(email, JSON.stringify({ name, email, password: pass }));
+  alert("🎉 Account created successfully for " + name + "!");
+  showForm('login');
+});
+
+// Hamburger menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  hamburger.classList.toggle('active');
+});
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Billboard Advertising Locations - Indore</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #f4f4f9, #ffffff, #f7f7ff, #ececec);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #fff;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* ------------------- Header ------------------- */
+    header {
+      background: #0f1724;
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #00ffe7;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    /* Navbar Links */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .nav-links li a:hover {
+      background: #00ffe7;
+      color: #0f1724;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: #1e2a38;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 220px;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        border-radius: 0 0 10px 10px;
+      }
+
+      .nav-links.active {
+        height: auto;
+        padding: 15px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 40px 20px;
+      color: #0f1724;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .page-title p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #333;
+    }
+      body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 30px 0 10px;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .locations-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .location-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .location-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.2);
+    }
+
+    .location-card h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: #222;
+    }
+
+    .location-card p {
+      color: #555;
+      font-size: 15px;
+    }
+
+    .preferred {
+      border: 2px solid #ff9800;
+      background: #fff8f0;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 18px;
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background: #e68900;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #fff;
+      margin-top: 20px;
+    }
+
+    /* Search bar styling */
+    #searchBox {
+      padding: 10px;
+      width: 250px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(-45deg, #f4f4f9, #ffffff, #f7f7ff, #ececec);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+/* ------------------- Base Styles ------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0f1724;
+  color: #fff;
+}
+
+/* ------------------- Header ------------------- */
+header {
+  background: #0f1724;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #00ffe7;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* ------------------- Navbar Links ------------------- */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+/* Hover effect (desktop + mobile) */
+.nav-links li a:hover {
+  background: #00ffe7;
+  color: #0f1724;
+}
+
+/* ------------------- Hamburger Menu ------------------- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: white;
+  margin: 4px 0;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* ------------------- Responsive (Phones/Tablets) ------------------- */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background: #1e2a38;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 220px;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .nav-links li a:hover {
+    background: #00ffe7;
+    color: #0f1724;
+  }
+
+  .nav-links.open {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* ------------------- Hamburger Animation ------------------- */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <div class="logo">NeoVision Ads</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="location.html">Location</a></li>
+        <li><a href="packaging.html">Packages</a></li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="follow.html">Follow Us</a></li>
+      </ul>
+      <!-- Hamburger Menu -->
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Page Title -->
+  <section class="page-title">
+    <h1>3D Billboard Advertising Locations</h1>
+    <p>Explore prime locations in Indore</p>
+  </section>
+  
+  <!-- Search Bar -->
+  <div style="text-align:center; margin:20px;">
+    <input type="text" id="searchBox" placeholder="Search Location..." onkeyup="searchLocation()">
+  </div>
+
+  <!-- Highlighted Preferred Locations Section -->
+  <h2 class="section-title">Preferred Advertising Locations</h2>
+  <div class="locations-container">
+    <div class="location-card preferred">
+      <h3>Vijay Nagar Square</h3>
+      <p>Prime commercial hub, heavy traffic flow, best for high visibility.</p>
+      <button onclick="bookLocation('Vijay Nagar Square')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card preferred">
+      <h3>Palasia Square</h3>
+      <p>Busy area, offices and cafes nearby, strong youth & corporate audience.</p>
+      <button onclick="bookLocation('Palasia Square')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card preferred">
+      <h3>Bhawarkua</h3>
+      <p>Popular student & residential zone, continuous audience flow.</p>
+      <button onclick="bookLocation('Bhawarkua')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card preferred">
+      <h3>Rajwada</h3>
+      <p>Historical landmark with cultural gatherings and tourist attraction.</p>
+      <button onclick="bookLocation('Rajwada')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card preferred">
+      <h3>Airport Road</h3>
+      <p>Premium advertising location, seen by travelers & high-class audience.</p>
+      <button onclick="bookLocation('Airport Road')" class="cta-btn">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Other Locations Section -->
+  <h2 class="section-title">Other Available Locations</h2>
+  <div class="locations-container">
+    <div class="location-card">
+      <h3>Chhoti Gwaltoli</h3>
+      <p>Central city spot with constant foot traffic and exposure.</p>
+      <button onclick="bookLocation('Chhoti Gwaltoli')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card">
+      <h3>Geeta Bhawan Square</h3>
+      <p>Popular religious & commercial place with a mixed audience.</p>
+      <button onclick="bookLocation('Geeta Bhawan Square')" class="cta-btn">Book Now</button>
+    </div>
+    <div class="location-card">
+      <h3>Tower Square</h3>
+      <p>Busy square with offices, retail shops, and traffic movement.</p>
+      <button onclick="bookLocation('Tower Square')" class="cta-btn">Book Now</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 3D Billboard Advertising | Indore Locations</p>
+  </footer>
+
+  
+
+  <script>
+    // Search functionality
+    function searchLocation() {
+      let input = document.getElementById("searchBox").value.toLowerCase();
+      let cards = document.getElementsByClassName("location-card");
+
+      for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+        if (title.includes(input)) {
+          cards[i].style.display = "block";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+
+    // CTA button click
+    function bookLocation(name) {
+      alert("📢 Thank you for choosing " + name + "! Our team will contact you soon.");
+    }
+
+    // Glow effect for preferred locations
+    window.onload = () => {
+      let preferred = document.querySelectorAll(".preferred");
+      preferred.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.boxShadow = "0 0 20px 4px orange";
+          setTimeout(() => { card.style.boxShadow = ""; }, 1000);
+        }, index * 500);
+      });
+    };
+    // Toggle navbar for phone
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
